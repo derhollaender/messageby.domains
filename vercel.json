@@ -1,0 +1,35 @@
+{
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/html/index.html"
+    },
+    {
+      "src": "/open-message",
+      "dest": "/api/open-message"
+    },
+    {
+      "src": "/m",
+      "dest": "message.html"
+    },
+    {
+      "src": "/done",
+      "dest": "/api/done"
+    },
+    {
+      "src": "/next",
+      "dest": "/api/next"
+    },
+    {
+      "src": "/stats",
+      "dest": "/api/stats"
+    },
+    {
+      "src": "/(html\\.*|html/.*)",
+      "status": 308,
+      "headers": {
+        "Location": "/"
+      }
+    }
+  ]
+}

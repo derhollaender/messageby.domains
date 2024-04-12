@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <title>send a messageby.domains </title>
+  <meta name="description" content="High-performance HTML based website template." />
+  <link rel="icon" type="image/x-icon" href="/images/assets/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" href="/assets/images/trollface-152-236195.png">
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/images/trollface-152-236195.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/trollface-144-236195.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/assets/images/trollface-120-236195.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/trollface-114-236195.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/trollface-72-236195.png">
+  <link rel="apple-touch-icon-precomposed" href="/assets/images/trollface-57-236195.png">
+  <link rel="icon" href="/assets/images/trollface-32-236195.png" sizes="32x32">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bowser/2.11.0/bundled.min.js"
+    integrity="sha512-hsF/cpBvi/vjCP4Ps/MrPUFk6l4BqcGbzVUhqjJdX2SmAri1Oj8FBUGCvBiKHYd6gg3vLsV16CtIRNOvK5X4lQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <style>
+    .position-for-array {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container open-message">
+    <div>
+      <h1>Somebody left a message for you</h1>
+      <p>Get ready for some serious word-by-word action! The message will be
+        presented in the address bar, so prepare to point your eyes up there. No fireworks or confetti, unfortunately.
+        Just words. Lots and lots of words. One by one. Ready ? </p>
+      <a href="#" id="message-link">
+        <button type="submit">Open Message &#x1F4E9;</button>
+      </a>
+
+
+    </div>
+    <form id="adressbar-form">
+      <p>Is your address on the top or bottom of the screen?</p>
+      <div class="adressbar-container">
+        <label for="top" class="adressbar" onclick="selectOption('top')"></label>
+        <label for="bottom" class="adressbar bottom" onclick="selectOption('bottom')"></label>
+      </div>
+      <input type="radio" id="top" name="address_position" value="top">
+      <input type="radio" id="bottom" name="address_position" value="bottom">
+    </form>
+  </div>
+  <img src="/assets/images/loading.gif" id="loading" alt="loading" />
+  <script>
+    function hideForm() {
+      document.getElementById('adressbar-form').style.display = 'none';
+    }
+
+    function showForm() {
+      document.querySelector(".container > div").style.display = 'none';
+      document.getElementById('message-link').style.display = 'none';
+      document.getElementById('adressbar-form').style.display = 'block';
+    }
+
+    function selectOption(value) {
+      // Remove 'selected' class from both adressbars
+      document.querySelectorAll('.adressbar').forEach(function (adressbar) {
+        adressbar.classList.remove('selected');
+      });
+
+      // Add 'selected' class to the clicked adressbar and check the associated radio button
+      var selectedadressbar = value === 'top' ? 0 : 1;
+      document.querySelectorAll('.adressbar')[selectedadressbar].classList.add('selected');
+      document.getElementById(value).checked = true;
+      sendAjaxRequest(value);
+    }
+
+    function sendAjaxRequest(addressBarPosition) {
+      document.querySelector(".container > div").style.display = 'none';
+      document.getElementById("adressbar-form").style.display = 'none';
+
+      document.getElementById('loading').style.display = 'block';
+      const urlParams = new URLSearchParams(window.location.search);
+      const h = urlParams.get('m');
+
+      if (h) {
+        fetch('/next?m=' + h + '&p=' + addressBarPosition, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.link) {
+              window.location.href = data.link;
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+    }
+
+    function determineDevice() {
+      var deviceType = bowser.getParser(window.navigator.userAgent).getPlatformType();
+      var browserName = bowser.getParser(window.navigator.userAgent).getBrowserName();
+
+      if (deviceType === 'desktop') {
+        sendAjaxRequest('top');
+      } else {
+        showForm();
+      }
+    }
+
+    document.getElementById('message-link').addEventListener('click', function (event) {
+      event.preventDefault();
+      determineDevice();
+    });
+
+    document.getElementById('adressbar-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+    });
+  </script>
+</body>
+
+</html>

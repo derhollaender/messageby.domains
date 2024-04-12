@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="/assets/css/style.css" />
+    <title>send a messageby.domains </title>
+    <meta
+      name="description"
+      content="High-performance HTML based website template." />
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed"
+      href="/assets/images/trollface-152-236195.png">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+      href="/assets/images/trollface-152-236195.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+      href="/assets/images/trollface-144-236195.png">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+      href="/assets/images/trollface-120-236195.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+      href="/assets/images/trollface-114-236195.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+      href="/assets/images/trollface-72-236195.png">
+    <link rel="apple-touch-icon-precomposed"
+      href="/assets/images/trollface-57-236195.png">
+    <link rel="icon" href="/assets/images/trollface-32-236195.png"
+      sizes="32x32">
+    <script src="
+https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js
+"></script>
+
+    <style>
+      .position-for-array{
+        display: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container open-message">
+      <h1>Message not available anymore :(</h1>
+
+      <p>It seems like the message you're looking for is not available
+        anymore.</p>
+      <p>But don't worry! You can still <a href="/">send</a> your own message to
+        someone else.</p>
+
+    </div>
+
+    <script>
+      function hideForm() {
+        document.getElementById('phone-form').style.display = 'none';
+      }
+
+      function showForm() {
+
+        document.getElementById('message-link').style.display = 'none';
+        document.getElementById('phone-form').style.display = 'block';
+      }
+
+      function selectOption(value) {
+        // Remove 'selected' class from both phones
+        document.querySelectorAll('.phone').forEach(function(phone) {
+          phone.classList.remove('selected');
+        });
+
+        // Add 'selected' class to the clicked phone and check the associated radio button
+        var selectedPhone = value === 'top' ? 0 : 1;
+        document.querySelectorAll('.phone')[selectedPhone].classList.add('selected');
+        document.getElementById(value).checked = true;
+        sendAjaxRequest();
+      }
+
+      function sendAjaxRequest() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const h = urlParams.get('m');
+
+        if (h) {
+          const payload = { hash: h };
+
+          fetch('/next?m='+h, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.link) {
+                window.location.href = data.link;
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+      }
+
+      function determineDevice() {
+        var deviceType = bowser.getParser(window.navigator.userAgent).getPlatformType();
+        var browserName = bowser.getParser(window.navigator.userAgent).getBrowserName();
+
+        if (deviceType === 'desktop') {
+          sendAjaxRequest();
+        } else {
+          showForm();
+        }
+      }
+
+      document.getElementById('message-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        determineDevice();
+      });
+
+      document.getElementById('phone-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+      });
+    </script>
+  </body>
+</html>

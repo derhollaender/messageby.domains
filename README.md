@@ -21,13 +21,13 @@ The message: "Hello, how are you doing today?" translates to
 
 
 ## Built With
-- vercel
-- typescript
-- html
-- css
+- Vercel
+- Typescript
+- Html
+- Css
 
 ## Why?
-I've built some little projects with Netlify, but never had the time to have a look at Vercel. I came across an article that mentioned Vercel supports wildcard certificates, and I thought, "What can we do with a wildcard domain?" The idea was born. It was purely an entertaining project to get familiar with Vercel.
+I have created several small projects using Netlify, but I haven't had the opportunity to explore Vercel yet. Recently, I came across an article mentioning that Vercel supports wildcard certificates. Although the [static.fun demo}(https://vercel.com/blog/wildcard-domains) provided by Vercel for this purpose is no longer functional, it sparked my curiosity about the possibilities of using wildcard domains on Vercel. This project serves as a working demonstration of wildcard domains on Vercel and was primarily created for entertainment purposes while getting acquainted with the platform.
 
 ## License
 This project is licensed under the MIT License.

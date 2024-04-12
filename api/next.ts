@@ -49,7 +49,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const protocol = process.env.VERCEL_ENV === 'development' ? 'http' : 'https';
     const isProd = process.env.VERCEL_ENV === 'production';
 
-    if (message.currentWord >= message.words.length) {
+    if (message.currentWord > message.words.length) {
       if (message.selfDestruct) {
         await kv.del(hash);
       } else {
@@ -124,7 +124,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   $('body').attr('class', "next " + position);
   $('#giphy').attr('src', giphy);
   // This is just an example, replace with your own manipulation
-  $('meta[name="redirection"]').attr('content', `1; ${link}`);
+  $('meta[name="redirection"]').attr('content', `2; ${link}`);
   // Set the content type to HTML and send the response
   res.setHeader('Content-Type', 'text/html');
   res.send($.html());

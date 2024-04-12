@@ -27,7 +27,7 @@ The message: "Hello, how are you doing today?" translates to
 - Css
 
 ## Why?
-I have created several small projects using Netlify, but I haven't had the opportunity to explore Vercel yet. Recently, I came across an article mentioning that Vercel supports wildcard certificates. Although the [static.fun demo}(https://vercel.com/blog/wildcard-domains) provided by Vercel for this purpose is no longer functional, it sparked my curiosity about the possibilities of using wildcard domains on Vercel. This project serves as a working demonstration of wildcard domains on Vercel and was primarily created for entertainment purposes while getting acquainted with the platform.
+I have created several small projects using Netlify, but I haven't had the opportunity to explore Vercel yet. Recently, I came across an article mentioning that Vercel supports wildcard certificates. Although the [static.fun demo](https://vercel.com/blog/wildcard-domains) provided by Vercel for this purpose is no longer functional, it sparked my curiosity about the possibilities of using wildcard domains on Vercel. This project serves as a working demonstration of wildcard domains on Vercel and was primarily created for entertainment purposes while getting acquainted with the platform.
 
 ## License
 This project is licensed under the MIT License.

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <title>send a messageby.domains</title>
+  <meta name="description" content="High-performance HTML based website template." />
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" href="/assets/images/trollface-152-236195.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/images/trollface-152-236195.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/trollface-144-236195.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/assets/images/trollface-120-236195.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/trollface-114-236195.png" />
+  <link rel=" apple-touch-icon-precomposed" sizes="152x152" href="/assets/imagestrollface-152-236195.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/imagestrollface-144-236195.png">
+
+<body>
+  <div class="container">
+    <div id="stats">
+      <span>200</span> messages sent so far
+    </div>
+    <img src="/assets/images/trollface-144-236195.png" class="logo" alt="Trollface" />
+    <h1 id="title">send a messageby.domains</h1>
+    <p>
+      Are you ready to unleash the ultimate annoyance on somebody? Look no
+      further.
+    </p>
+    <p>
+      messageby.domains is the quite the annoying and ridiculous
+      messaging service.
+      We deliver your message word by word in the url as part of the
+      domain<br />
+      It's like:
+    <ul>
+      <li>a tortoise with a jetpack 🐢🚀</li>
+      <li>a post-pigeon with a severe case of forgetfulness 🐦💭</li>
+      <li>a sloth with the speed of... well, a sloth 🦥</li>
+    </ul>
+    </p>
+    <p>So, if you want to annoy someone in the most absurd way possible, you've come to the right place.</p>
+    <p>
+      So don't wait. Type your cringy message below, hit create, share the
+      link and let the trolling begin 🤪
+    </p>
+
+    <!-- Form to create a message -->
+    <form id="messageForm">
+      <label for="message"><b>message:</b></label><br />
+      <div>
+        <textarea id="message" name="message" rows="10" cols="100" maxlength="10000"
+          placeholder="Type your funky message here..." oninput="updateCharacterCount()"></textarea><br />
+      </div>
+      <div id="characterCount"></div>
+
+      <label for="name">name (optional):</label>
+      <div>
+        <input type="text" id="name" placeholder="anonymous" name="name" />
+      </div>
+
+      <label for="selfDestruct">destroy message after viewing? <small>(msg can be viewed only
+          once)</small></label><br />
+      <div>
+        <input type="checkbox" id="selfDestruct" name="selfDestruct" />
+      </div>
+      <!-- Error message -->
+      <div id="errorMessage">Error occurred. Please try again.</div>
+      <div>
+        <button type="submit">create</button>
+      </div>
+
+    </form>
+    <!-- Share link box with copy to clipboard button -->
+    <div id="shareLinkBox">
+      <label id="share" for="shareLink"><b>Share this link:</b></label><br />
+
+      <div>
+        <input type="text" id="shareLink" readonly name="sha" />
+        <button id="copyButton">copy</button>
+
+      </div>
+
+    </div>
+  </div>
+  <footer>
+    <p>made with <span>&#10084;</span> in germany |
+      <a href="javascript:window.alert('This website does not set any cookies 🥳')">&#127850;</a> |
+      <a target="_blank" href="https://github.com/derhollaender/messageby.domains">github</a>
+      </a> | <a target="_blank" href="https://github.com/derhollaender/messageby.domains/blob/main/README.md#why">why?
+    </p>
+    </p>
+  </footer>
+  <script>
+    // Function to handle form submission using AJAX
+    document.getElementById("messageForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var message = document.getElementById("message").value.trim();
+      var words = message.split(" ");
+
+      if (message !== "" && words.length >= 3) {
+        var formData = new FormData(this);
+
+        fetch("/api/add-message", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ message: formData.get("message"), name: formData.get("name") ?? '', selfDestruct: formData.get("selfDestruct") })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (!data.link) {
+              document.getElementById("shareLinkBox").style.display = "none";
+              document.getElementById("errorMessage").style.display = "block";
+            } else {
+              window.location.href = "/" + '#share'
+              document.getElementById("shareLink").value = data.link;
+              document.getElementById("shareLinkBox").style.display = "block";
+              document.getElementById("errorMessage").style.display = "none";
+            }
+          })
+          .catch(error => {
+            document.getElementById("shareLinkBox").style.display = "none";
+            document.getElementById("errorMessage").style.display = "block";
+            console.error("Error:", error);
+          });
+      } else {
+        window.alert('add some more words to your message!')
+      }
+
+    });
+
+    // Function to copy share link to clipboard
+    document.getElementById("copyButton").addEventListener("click", function () {
+      var shareLink = document.getElementById("shareLink");
+      shareLink.select();
+      shareLink.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      document.getElementById("copyButton").innerText = "copied!";
+      setTimeout(function () {
+        document.getElementById("copyButton").innerText = "copy";
+      }, 2000);
+    });
+
+    // Function to update character count
+    function updateCharacterCount() {
+      var message = document.getElementById("message").value;
+      var characterCount = message.length;
+      var characterCountElement = document.getElementById("characterCount");
+      characterCountElement.textContent = characterCount + " / 10000 chars";
+    }
+    updateCharacterCount(); // Initial update
+
+    fetch("/api/stats")
+      .then(response => response.json())
+      .then(data => {
+        if (data.count) {
+          document.querySelector("#stats > span").textContent = data.count;
+          document.querySelector("#stats").style.display = "block";
+        }
+      })
+      .catch(error => { });
+  </script>
+
+</body>
+
+</html>

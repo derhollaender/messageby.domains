@@ -1,0 +1,334 @@
+body {
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  margin: 20px;
+}
+
+.open-message {
+  text-align: center;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.logo {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #ff6347;
+  /* Tomato */
+  margin-bottom: 20px;
+}
+
+p {
+  color: #333333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+textarea,
+input {
+  width: calc(100% - 20px);
+  max-width: 100%;
+  padding: 10px;
+  margin: 0 auto 20px;
+  border: 2px solid #ff6347;
+  /* Tomato */
+  border-radius: 10px;
+  resize: none;
+}
+
+button {
+  min-width: 30%;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+textarea {
+  margin: 0 auto;
+}
+
+input {
+  margin: 0 0;
+}
+
+button {
+  background-color: #ff6347;
+  /* Tomato */
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #d63b20;
+  /* Darker Tomato */
+}
+
+.funny-image {
+  margin-top: 40px;
+  max-width: 100%;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.adressbar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adressbar {
+  width: 60px;
+  height: 120px;
+  border: solid 2px #000;
+  border-radius: 12px;
+  position: relative;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.adressbar:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  height: 5px;
+  background: #333;
+  border-radius: 10px;
+}
+
+.adressbar.bottom:before {
+  bottom: 10px;
+  top: auto;
+}
+
+.adressbar:hover,
+.adressbar.selected {
+  background-color: #d63b20;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+}
+
+#adressbar-form {
+  display: none
+}
+
+#giphy {
+  max-height: 300px
+}
+
+.next {
+  text-align: center;
+}
+
+ul {
+  margin: -10px 0 0 0;
+}
+
+#shareLinkBox {
+  margin: 20px 0
+}
+
+#shareLinkBox>div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin: 10px 0;
+}
+
+#shareLinkBox p {
+  color: #ff6347;
+  font-weight: bold;
+
+}
+
+#shareLinkBox input,
+#shareLinkBox button {
+
+  /* margin: 0 0; */
+  border: 2px solid #ff6347;
+  border-radius: 10px;
+}
+
+#shareLinkBox button {
+  background: #ff6347;
+  color: white;
+  margin: 0 0 0 10px;
+  min-width: 30%;
+}
+
+@media screen and (max-width: 600px) {
+
+  button {
+    flex: 1;
+
+  }
+}
+
+/* Inline CSS */
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  position: relative;
+}
+
+#message {
+  width: 100%;
+}
+
+#characterCount {
+  text-align: right;
+  color: gray;
+  font-size: 0.8em;
+  display: block;
+}
+
+#errorMessage {
+  display: none;
+  color: red;
+}
+
+#shareLinkBox {
+  display: none;
+}
+
+#share {
+  font-weight: bold;
+}
+
+
+.container h1 {
+  margin-top: 0;
+}
+
+.container p {
+  margin-bottom: 20px;
+}
+
+.container ul {
+  margin-top: 0;
+}
+
+.container li {
+  list-style-type: none;
+}
+
+#messageForm {
+  margin-bottom: 20px;
+}
+
+textarea,
+input {
+  margin: 10px 0;
+  width: 100%;
+}
+
+#messageForm #characterCount {
+  margin-bottom: 10px;
+}
+
+#messageForm input[type="text"] {
+  flex: 1;
+}
+
+#messageForm #selfDestruct {
+  margin: 10px 0;
+}
+
+#errorMessage {
+  margin-top: 20px;
+}
+
+label {
+  cursor: pointer;
+}
+
+#shareLinkBox label {
+  font-weight: bold;
+
+}
+
+
+#shareLinkBox button {
+  margin-left: 10px;
+}
+
+form>div {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+
+#stats {
+  margin-top: -20px;
+  color: white;
+  padding: 10px;
+  background: #ff6347;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: absolute;
+  right: 0px;
+  width: auto;
+  top: 0px;
+  font-size: 0.8em;
+  display: none
+}
+
+#stats>span {
+  font-weight: bold;
+}
+
+#loading {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  top: 50%;
+  left: 50%;
+  margin-left: -32px;
+  margin-top: -32px;
+  display: none
+}
+
+img {
+  max-width: 100%;
+}
+
+a:visited {
+  color: #333333;
+}
+
+footer {
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+}
